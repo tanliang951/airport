@@ -1,0 +1,7 @@
+,dept,arrv,date,dept_time,arrv_time,duration,airline-name,airport_from,airport_to,flight_number,distance,class_type,aircraft
+0,ATL,PHX,12/01/2017,11:42am,1:59pm,4h 17m,American Airlines,ATL,PHX,American Airlines 495,Atlanta to Phoenix,,Airbus A319
+1,ATL,PHX,12/01/2017,6:18pm,8:35pm,4h 17m,American Airlines,ATL,PHX,American Airlines 1715,Atlanta to Phoenix,,Airbus A320
+2,ATL,PHX,12/01/2017,9:05pm,11:25pm,4h 20m,Delta,ATL,PHX,Delta 2013,Atlanta to Phoenix,,Boeing 737-900
+3,ATL,PHX,12/01/2017,5:58pm,8:20pm,4h 22m,Delta,ATL,PHX,Delta 2632,Atlanta to Phoenix,,Boeing 757 (757-300)
+4,ATL,PHX,12/01/2017,11:00am,1:23pm,4h 23m,Delta,ATL,PHX,Delta 1772,Atlanta to Phoenix,,Boeing 757 (757-300)
+5,ATL,PHX,12/01/2017,2:32pm,4:50pm,4h 18m,Delta,ATL,PHX,Delta 2618,Atlanta to Phoenix,,Boeing 737-900
