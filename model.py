@@ -18,6 +18,7 @@ import matplotlib.pyplot as plt
 import matplotlib.style
 import enum
 import copy
+import random
 import util
 
 
@@ -37,7 +38,7 @@ b is the only variable, it is the betray payoff
 matplotlib.style.use("ggplot")
 
 # seed to zero
-np.random.seed(0)
+#np.random.seed(0)
 
 class Type(enum.Enum):
     Cooperator = enum.auto()
@@ -49,6 +50,9 @@ class Lattice:
     shape (tuple)
     gama (float): the fraction of cooperator in the population
     b (float): the floating payoff variable
+    
+    Instance members:
+        generation_record: a enumerate-like sequence as (indexGen, frac_c)
     
     Default to randomly initiate the population as having gama fraction (exact)
     as Cooperators and the rest are Defectors. The distrution is symetric.
@@ -70,8 +74,8 @@ class Lattice:
             for i in range(self.shape[0]):
                 line = []
                 for j in range(self.shape[1]):
-                    line.append(players.pop()) # try at b=1.8
-                    self.grid.append(line)
+                    line.append(players.pop())
+                self.grid.append(line)
             self.update_generation_record()
     
     @staticmethod
@@ -83,8 +87,8 @@ class Lattice:
         for i in range(numC):
             players.append(Player(Type.Cooperator, b))
         for i in range(numD):
-            players.append(Player(Type.Defector, b))
-        np.random.shuffle(players)
+            players.append(Player(Type.Defector, b))        
+        random.shuffle(players)
         return players
     
     """
@@ -125,7 +129,6 @@ class Lattice:
                 return 1
             else:
                 return 0
-        
         m = []
         for i in range(self.shape[0]):
             l = []
@@ -133,18 +136,18 @@ class Lattice:
                 l.append(t2num(self[i][j].type))
             m.append(l)
         plt.clf()
-        plt.pcolor(m, cmap='RdBu')
-        plt.colorbar()
-                
-    
+        ax = self.figure.add_subplot('111')
+        ax.pcolor(m, cmap='RdBu')
+        
+        
     """
     Return the adjance cells (including itself)
     3 to 9 cells
     """
-    def get_neighbours(self, x, y):
+    def get_neighbours(self, x, y, layer=1):
         n = []
-        for i in range(x-1, x+2):
-            for j in range(y-1, y+2):
+        for i in range(x-layer, x+layer+1):
+            for j in range(y-layer, y+layer+1):
                 # check bounds
                 if i >= 0 and i < self.shape[0] and j >= 0 and j < self.shape[1]:
                     n.append(self.grid[i][j])
@@ -159,14 +162,14 @@ class Lattice:
             for j in range(self.shape[1]):
                 func(i, j)
     
-    def update(self):
+    def update(self, layer):
         # record alter count
         # conduct interactions and update scores        
         for i in range(self.shape[0]):
             for j in range(self.shape[1]):
                 player = self.grid[i][j]
                 # play with itself, also
-                player.play_with_neighbours(nbs=self.get_neighbours(i, j))
+                player.play_with_neighbours(nbs=self.get_neighbours(i, j, layer=layer))
 
         # decide the cell's owner again
         for i in range(self.shape[0]):

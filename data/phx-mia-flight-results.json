@@ -1,0 +1,47 @@
+[
+    {
+        "stops": "Nonstop",
+        "total distance": "1,969",
+        "ticket price": "502.42",
+        "departure": "PHX, Phoenix",
+        "arrival": "MIA, Miami",
+        "flight duration": "0 days 4 hours 13 minutes",
+        "airline": "American Airlines",
+        "plane": "Airbus A321",
+        "departure_airport": "Phoenix, AZ (PHX-Sky Harbor Intl.)",
+        "departure_time": "1:10am",
+        "arrival_airport": "Miami, FL (MIA-Miami Intl.)",
+        "arrival_time": "7:23am",
+        "plane code": "321"
+    },
+    {
+        "stops": "Nonstop",
+        "total distance": "1,969",
+        "ticket price": "502.42",
+        "departure": "PHX, Phoenix",
+        "arrival": "MIA, Miami",
+        "flight duration": "0 days 4 hours 21 minutes",
+        "airline": "American Airlines",
+        "plane": "Boeing 737-800",
+        "departure_airport": "Phoenix, AZ (PHX-Sky Harbor Intl.)",
+        "departure_time": "3:10pm",
+        "arrival_airport": "Miami, FL (MIA-Miami Intl.)",
+        "arrival_time": "9:31pm",
+        "plane code": "738"
+    },
+    {
+        "stops": "Nonstop",
+        "total distance": "1,969",
+        "ticket price": "636.40",
+        "departure": "PHX, Phoenix",
+        "arrival": "MIA, Miami",
+        "flight duration": "0 days 4 hours 30 minutes",
+        "airline": "American Airlines",
+        "plane": "Airbus A321",
+        "departure_airport": "Phoenix, AZ (PHX-Sky Harbor Intl.)",
+        "departure_time": "10:06am",
+        "arrival_airport": "Miami, FL (MIA-Miami Intl.)",
+        "arrival_time": "4:36pm",
+        "plane code": "321"
+    }
+]
