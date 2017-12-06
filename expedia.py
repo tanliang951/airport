@@ -18,6 +18,9 @@ date: 01/01/2018
 """
 def parse(source, destination, date):
     try:
+        source = 'atl' 
+        destination = 'phx'
+        date='01/01/2018'
         url = "https://www.orbitz.com/Flights-Search?trip=oneway&leg1=from:{},to:{},departure:{}TANYT&passengers=adults%3A1%2Cchildren%3A0%2Cseniors%3A0%2Cinfantinlap%3AY&options=cabinclass%3Aeconomy&mode=search&origref=www.orbitz.com".format(source, destination, date)
         print(url)
         response = requests.get(url)
