@@ -10,6 +10,7 @@ import requests
 import json
 import argparse
 
+
 """
 source: jfk
 destination: mia
@@ -17,18 +18,31 @@ date: 01/01/2018
 """
 def parse(source, destination, date):
     try:
-        url = "https://www.orbitz.com/Flights-Search?trip=oneway&leg1=from:{0},to:{1},departure:{2}TANYT&passengers=adults%3A1%2Cchildren%3A0%2Cseniors%3A0%2Cinfantinlap%3AY&options=maxhops%3A0&mode=search".format(source, destination, date)        
+        url = "https://www.orbitz.com/Flights-Search?trip=oneway&leg1=from:{},to:{},departure:{}TANYT&passengers=adults%3A1%2Cchildren%3A0%2Cseniors%3A0%2Cinfantinlap%3AY&options=cabinclass%3Aeconomy&mode=search&origref=www.orbitz.com".format(source, destination, date)
         print(url)
         response = requests.get(url)
-        json_data_xpath = bs.BeautifulSoup(response.text, 'lxml').find('script', {'id': 
-            'cachedResultsJson'}).text
+        soup = bs.BeautifulSoup(response.text, 'lxml')
+        # check the page is not disambiguise
+        
+        try:
+            json_data_xpath = soup.find('script', {'id': 'cachedResultsJson'}).text
+        except AttributeError:
+            print('Airport too small, skip')
+            return []
         raw_json = json.loads(json_data_xpath)
         flight_data = json.loads(raw_json['content'])
 
         
         lists = []
         
+        
         for k, v in flight_data['legs'].items():
+            no_of_stops = v["stops"]
+            if no_of_stops==0:
+                stop = "Nonstop"
+            else:
+                continue
+            
             total_distance =  v["formattedDistance"]
             exact_price = v['price']['totalPriceAsDecimal']
             departure_location_city = v['departureLocation']['airportCity']
@@ -38,16 +52,12 @@ def parse(source, destination, date):
             arrival_location_city = v['arrivalLocation']['airportCity']
             airline_name = v['carrierSummary']['airlineName']
             
-            no_of_stops = v["stops"]
             flight_duration = v['duration']
             flight_hour = flight_duration['hours']
             flight_minutes = flight_duration['minutes']
             flight_days = flight_duration['numOfDays']
     
-            if no_of_stops==0:
-                stop = "Nonstop"
-            else:
-                stop = str(no_of_stops)+' Stop'
+
     
             total_flight_duration = "{0} days {1} hours {2} minutes".format(flight_days,flight_hour,flight_minutes)
             departure = departure_location_airport_code+", "+departure_location_city

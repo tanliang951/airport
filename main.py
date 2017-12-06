@@ -16,7 +16,8 @@ df.sort_values(by=['Enplanements'], inplace=True, ascending=False)
 names = list(df['City'])
 
 codes = list(df['IATA'])
-codes = [c.lower() for c in codes[:5]]
+codes = [c.lower() for c in codes]
+codes = codes[:10]
 print("IATA of airports to check:")
 print(codes)
 print()
@@ -35,6 +36,7 @@ for dept, arrv in itertools.permutations(codes, 2):
     print("Checking from {} to {}".format(dept, arrv))
     data_scraped = parse(dept, arrv, date)
     print(len(data_scraped), 'flights found.')
+    print('------------')
     dataset.append({
             'ftd': {'dept': dept, 'arrv': arrv, 'date': date},
             'flights': data_scraped # a list
@@ -51,7 +53,7 @@ for pair in dataset:
         row = [dept, arrv, date] + [f[key] for key in f]
         m.append(row)
 
-df = pd.DataFrame(data=m, columns=['dept', 'arrv', 'date']+ list(f.keys()))
-df.to_csv("/Users/RockyYANG/Desktop/game/data/usa.csv")
+df_out = pd.DataFrame(data=m, columns=['dept', 'arrv', 'date']+ list(f.keys()))
+df_out.to_csv("/Users/RockyYANG/Desktop/game/data/usa.csv")
         
         
