@@ -11,9 +11,9 @@ import pandas as pd
 
 #date = "01/01/2018"
 
-task_number = input('Input your task number, 0-3:')
+task_number = input('Input your task number, 0-3: ')
 task_file = 'csv/task_split_{}.csv'.format(task_number)
-date = input("Input date:")
+date = input("Input date: ")
 df = pd.read_csv(task_file, header=0)
 
 depts = list(df['dept'])
@@ -47,6 +47,8 @@ for pair in dataset:
         m.append(row)
 
 df_out = pd.DataFrame(data=m, columns=['dept', 'arrv', 'date']+ list(f.keys()))
-df_out.to_csv("csv/results.csv")
+fout_path = "csv/results.csv"
+print('The data is write to', fout_path)
+df_out.to_csv(fout_path)
         
         
