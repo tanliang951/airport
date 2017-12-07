@@ -8,7 +8,6 @@ Created on Tue Dec  5 23:01:10 2017
 import bs4 as bs
 import requests
 import json
-import argparse
 
 
 """
@@ -18,9 +17,6 @@ date: 01/01/2018
 """
 def parse(source, destination, date):
     try:
-        source = 'atl' 
-        destination = 'phx'
-        date='01/01/2018'
         url = "https://www.orbitz.com/Flights-Search?trip=oneway&leg1=from:{},to:{},departure:{}TANYT&passengers=adults%3A1%2Cchildren%3A0%2Cseniors%3A0%2Cinfantinlap%3AY&options=cabinclass%3Aeconomy&mode=search&origref=www.orbitz.com".format(source, destination, date)
         print(url)
         response = requests.get(url)
@@ -110,18 +106,18 @@ def parse(source, destination, date):
     
     return {"error":"failed to process the page",}
 
-if __name__=="__main__":
-	argparser = argparse.ArgumentParser()
-	argparser.add_argument('source',help = 'Source airport code')
-	argparser.add_argument('destination',help = 'Destination airport code')
-	argparser.add_argument('date',help = 'MM/DD/YYYY')
-
-	args = argparser.parse_args()
-	source = args.source
-	destination = args.destination
-	date = args.date
-	print("Fetching flight details")
-	scraped_data = parse(source,destination,date)
-	print("Writing data to output file")
-	with open('/Users/RockyYANG/Desktop/game/data/{}-{}-flight-results.json'.format(source,destination),'w') as fp:
-	 	json.dump(scraped_data,fp,indent = 4)
+#if __name__=="__main__":
+#	argparser = argparse.ArgumentParser()
+#	argparser.add_argument('source',help = 'Source airport code')
+#	argparser.add_argument('destination',help = 'Destination airport code')
+#	argparser.add_argument('date',help = 'MM/DD/YYYY')
+#
+#	args = argparser.parse_args()
+#	source = args.source
+#	destination = args.destination
+#	date = args.date
+#	print("Fetching flight details")
+#	scraped_data = parse(source,destination,date)
+#	print("Writing data to output file")
+#	with open('/Users/RockyYANG/Desktop/game/data/{}-{}-flight-results.json'.format(source,destination),'w') as fp:
+#	 	json.dump(scraped_data,fp,indent = 4)
