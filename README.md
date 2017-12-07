@@ -15,4 +15,8 @@ About running time:
 - a flight search between two city usually takes about 0.1 seconds
 - one piece of task has more than 30k searches, which takes about 1 hour to finish or more
 - In total, 4 hours are estimated to finish scraping 400 major airports in USA.
--
+
+Make sure you have the following libraries:
+- Beautifulsoup
+- requests
+- pandas
