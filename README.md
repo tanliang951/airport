@@ -51,3 +51,5 @@ About requests `ConnectionError`
 - Try-catch in code now. It simply skips this search and return an empty list. Then print the information in output. To record the skip information, pipe the output to a file so later you can redo the missing requests mannually
 - Run code like this
 `python main.py > log.txt`
+
+Happy coding!
