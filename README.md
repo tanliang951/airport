@@ -1,3 +1,26 @@
+__This is the windows version__
+
+
+create a virtualenv for project packages
+```sh
+pip install virtualenv
+cd Desktop\
+virtualenv airport
+cd airports
+# activate the virtual env
+\Scripts\activate
+```
+
+Install dependencies using pip
+```sh
+pip install requests
+pip install bs4
+pip install pandas
+pip install lxml
+```
+
+Others run as usual.
+
 # airport
 The main program is in main.py
 
