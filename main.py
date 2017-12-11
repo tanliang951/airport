@@ -26,9 +26,9 @@ keys = ['total distance',
     ]
 
 task_file = raw_input("Input full path to task file: ")
-print('task file:', task_file)
+print('task file: ' + task_file)
 date = raw_input("Input date: ")
-print('date:', date)
+print('date: '+ date)
 df = pd.read_csv(task_file, header=0)
 
 depts = [c.lower() for c in list(df['dept'])]
@@ -44,7 +44,7 @@ for dept, arrv in dept_arrv_tuple_list:
     counter += 1
     print("Checking from {} to {}".format(dept, arrv))
     
-    data_scraped = parse(dept, arrv, date, display_url=True)
+    data_scraped = parse(dept, arrv, date, display_url=False)
     print(str(len(data_scraped)) + ' flights found in this route.')
     print('-------------')
     dataset.append({'dept': dept,
