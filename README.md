@@ -5,7 +5,7 @@ create a virtualenv for project packages
 pip install virtualenv
 cd Desktop\
 virtualenv airport
-cd airports\
+cd airport\
 # activate the virtual env
 \Scripts\activate
 ```
