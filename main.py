@@ -10,7 +10,6 @@ from expedia import parse
 import pandas as pd
 import os
 
-#date = "01/01/2018"
 
 keys = ['total distance',
         'ticket price',
@@ -41,13 +40,13 @@ dataset = []
 counter = 0
 total = len(dept_arrv_tuple_list)
 for dept, arrv in dept_arrv_tuple_list:
-    print('Complete:', "{0:.0f}%".format(counter/total* 100))
+    print('Complete:', "{0:.0f}%".format(float(counter)/total* 100))
     counter += 1
     print("Checking from {} to {}".format(dept, arrv))
     
     data_scraped = parse(dept, arrv, date, display_url=True)
-    print(len(data_scraped), 'flights found in this route.')
-    print()
+    print(str(len(data_scraped)) + ' flights found in this route.')
+    print('-------------')
     dataset.append({'dept': dept,
             'arrv': arrv,
             'date': date,
