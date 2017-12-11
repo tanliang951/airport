@@ -1,7 +1,5 @@
 __This is the windows version__
 
-Initionally to add something here.
-
 create a virtualenv for project packages
 ```sh
 pip install virtualenv
@@ -53,4 +51,4 @@ About requests `ConnectionError`
 - Run code like this
 `python main.py > log.txt`
 
-Happy coding!
+No happy coding!
