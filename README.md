@@ -6,17 +6,19 @@ create a virtualenv for project packages
 pip install virtualenv
 cd Desktop\
 virtualenv airport
-cd airports
+cd airports\
 # activate the virtual env
 \Scripts\activate
 ```
+After this, `airport` will prefix your command prompt. It means that a new python environment is created to store your
+new packages. It avoids conflicts with your global python envrionment.
 
 Install dependencies using pip
 ```sh
 pip install requests
 pip install bs4
 pip install pandas
-pip install lxml
+pip install lxml # this seems necessary or bs cannot parse the document tree
 ```
 
 Others run as usual.
