@@ -40,7 +40,7 @@ dataset = []
 counter = 0
 total = len(dept_arrv_tuple_list)
 for dept, arrv in dept_arrv_tuple_list:
-    print('Complete:', "{0:.0f}%".format(float(counter)/total* 100))
+    print('Complete: ' + "{0:.0f}%".format(float(counter)/total* 100))
     counter += 1
     print("Checking from {} to {}".format(dept, arrv))
     
