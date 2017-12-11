@@ -51,4 +51,4 @@ About requests `ConnectionError`
 - Run code like this
 `python main.py > log.txt`
 
-No happy coding!
+Happy coding!
