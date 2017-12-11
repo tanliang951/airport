@@ -8,6 +8,7 @@ Created on Thu Nov 30 13:41:53 2017
 
 from expedia import parse
 import pandas as pd
+import os
 
 #date = "01/01/2018"
 
@@ -25,8 +26,10 @@ keys = ['total distance',
         'plane code',
     ]
 
-task_file = input("Input full path to task file: ")
-date = input("Input date: ")
+task_file = raw_input("Input full path to task file: ")
+print('task file:', task_file)
+date = raw_input("Input date: ")
+print('date:', date)
 df = pd.read_csv(task_file, header=0)
 
 depts = [c.lower() for c in list(df['dept'])]
@@ -44,6 +47,7 @@ for dept, arrv in dept_arrv_tuple_list:
     
     data_scraped = parse(dept, arrv, date, display_url=True)
     print(len(data_scraped), 'flights found in this route.')
+    print()
     dataset.append({'dept': dept,
             'arrv': arrv,
             'date': date,
@@ -60,7 +64,7 @@ for data in dataset:
         m.append(row)
 
 df_out = pd.DataFrame(data=m, columns=['dept', 'arrv', 'date']+keys)
-fout_path = "csv/results.csv"
+fout_path = "csv" + os.sep + "results.csv"
 print('The data is write to', fout_path)
 df_out.to_csv(fout_path)
         
