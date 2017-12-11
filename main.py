@@ -39,7 +39,9 @@ dataset = []
 
 counter = 0
 total = len(dept_arrv_tuple_list)
+print('Total to do' + str(total))
 for dept, arrv in dept_arrv_tuple_list:
+    print('Doing the ' +str(counter) + 'th search') 
     print('Complete: ' + "{0:.0f}%".format(float(counter)/total* 100))
     counter += 1
     print("Checking from {} to {}".format(dept, arrv))
