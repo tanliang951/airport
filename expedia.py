@@ -15,27 +15,35 @@ source: jfk
 destination: mia
 date: 01/01/2018
 """
-def parse(source, destination, date):
-    try:
-        url = "https://www.orbitz.com/Flights-Search?trip=oneway&leg1=from:{},to:{},departure:{}TANYT&passengers=adults%3A1%2Cchildren%3A0%2Cseniors%3A0%2Cinfantinlap%3AY&options=cabinclass%3Aeconomy&mode=search&origref=www.orbitz.com".format(source, destination, date)
+def parse(source, destination, date, display_url=False):
+    url = "https://www.orbitz.com/Flights-Search?trip=oneway&leg1=from:{},to:{},departure:{}TANYT&passengers=adults%3A1%2Cchildren%3A0%2Cseniors%3A0%2Cinfantinlap%3AY&options=cabinclass%3Aeconomy&mode=search&origref=www.orbitz.com".format(source, destination, date)
+    if display_url:
         print(url)
+    try:
         response = requests.get(url)
-        soup = bs.BeautifulSoup(response.text, 'lxml')
-        # check the page is not disambiguise
-        
-        try:
-            json_data_xpath = soup.find('script', {'id': 'cachedResultsJson'}).text
-        except AttributeError:
-            print('Airport too small, skip')
-            return []
+    except:
+        print('Bad requests.')
+        print('Should redo route from', source, 'to', destination, 'on date', date)
+        return []
+    soup = bs.BeautifulSoup(response.text, 'lxml')
+    # check the page is not disambiguise
+    
+    try:
+        json_data_xpath = soup.find('script', {'id': 'cachedResultsJson'}).text
+    except:
+        print('Cannot find script tag.')
+        return []
+
+    try:
         raw_json = json.loads(json_data_xpath)
         flight_data = json.loads(raw_json['content'])
+    except:
+        print('Cannot load json.')
+        return []
 
-        
-        lists = []
-        
-        
-        for k, v in flight_data['legs'].items():
+    lists = []    
+    for k, v in flight_data['legs'].items():
+        try:
             no_of_stops = v["stops"]
             if no_of_stops==0:
                 stop = "Nonstop"
@@ -55,9 +63,7 @@ def parse(source, destination, date):
             flight_hour = flight_duration['hours']
             flight_minutes = flight_duration['minutes']
             flight_days = flight_duration['numOfDays']
-    
 
-    
             total_flight_duration = "{0} days {1} hours {2} minutes".format(flight_days,flight_hour,flight_minutes)
             departure = departure_location_airport_code+", "+departure_location_city
             arrival = arrival_location_airport_code+", "+arrival_location_city
@@ -65,7 +71,7 @@ def parse(source, destination, date):
             plane = carrier['plane']
             plane_code = carrier['planeCode']
             formatted_price = "{0:.2f}".format(exact_price)
-    
+
             if not airline_name:
                 airline_name = carrier['operatedBy']
             
@@ -83,7 +89,7 @@ def parse(source, destination, date):
                                         'arrival_time':arrival_time
                     }
                     timings.append(flight_timing)
-    
+
             flight_info={'stops':stop,
                 'total distance': total_distance,
                 'ticket price':formatted_price,
@@ -99,13 +105,13 @@ def parse(source, destination, date):
                 'plane code':plane_code
             }
             lists.append(flight_info)
-        sortedlist = sorted(lists, key=lambda k: k['ticket price'],reverse=False)
-        return sortedlist
-    except ValueError:
-        print ('Value error')
+        except:
+            print('Some flights are incomplete, return what have got.')
+            return sorted(lists, key=lambda k: k['ticket price'],reverse=False)
     
-    return {"error":"failed to process the page",}
-
+    return sorted(lists, key=lambda k: k['ticket price'],reverse=False)
+        
+    
 #if __name__=="__main__":
 #	argparser = argparse.ArgumentParser()
 #	argparser.add_argument('source',help = 'Source airport code')

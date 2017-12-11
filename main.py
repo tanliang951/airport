@@ -11,13 +11,26 @@ import pandas as pd
 
 #date = "01/01/2018"
 
-task_number = input('Input your task number, 0-3: ')
-task_file = 'csv/task_split_{}.csv'.format(task_number)
+keys = ['total distance',
+        'ticket price',
+        'departure',
+        'arrival',
+        'flight duration',
+        'airline',
+        'plane',
+        'departure_airport',
+        'departure_time',
+        'arrival_airport',
+        'arrival_time',
+        'plane code',
+    ]
+
+task_file = input("Input full path to task file: ")
 date = input("Input date: ")
 df = pd.read_csv(task_file, header=0)
 
-depts = list(df['dept'])
-arrvs = list(df['arrv'])
+depts = [c.lower() for c in list(df['dept'])]
+arrvs = [c.lower() for c in list(df['arrv'])]
 dept_arrv_tuple_list = list(zip(depts, arrvs))
 
 dataset = []
@@ -29,24 +42,24 @@ for dept, arrv in dept_arrv_tuple_list:
     counter += 1
     print("Checking from {} to {}".format(dept, arrv))
     
-    data_scraped = parse(dept, arrv, date)
-    print(len(data_scraped), 'flights found.')
-    dataset.append({
-            'ftd': {'dept': dept, 'arrv': arrv, 'date': date},
-            'flights': data_scraped # a list
-            })
+    data_scraped = parse(dept, arrv, date, display_url=True)
+    print(len(data_scraped), 'flights found in this route.')
+    dataset.append({'dept': dept,
+            'arrv': arrv,
+            'date': date,
+            'flights': data_scraped})
+            #a list
 m = []
-for pair in dataset:
-    meta = pair['ftd']
-    dept = meta['dept']
-    arrv = meta['arrv']
-    date = meta['date']
-    flights = pair['flights']
+for data in dataset:
+    dept = data['dept']
+    arrv = data['arrv']
+    date = data['date']
+    flights = data['flights']
     for f in flights:
-        row = [dept, arrv, date] + [f[key] for key in f]
+        row = [dept, arrv, date] + [f[key] for key in keys]
         m.append(row)
 
-df_out = pd.DataFrame(data=m, columns=['dept', 'arrv', 'date']+ list(f.keys()))
+df_out = pd.DataFrame(data=m, columns=['dept', 'arrv', 'date']+keys)
 fout_path = "csv/results.csv"
 print('The data is write to', fout_path)
 df_out.to_csv(fout_path)

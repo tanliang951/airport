@@ -7,7 +7,7 @@ To start scraping:
 - download this repository
 - navigate to the root folder `airport/`
 - run `python main.py`
-- Input your task csv number, 0, 1, 2 or 3
+- Input the full path to task file (specifying arrv, dept in every row) as indicated
 - Input the date
 - the result will be write to `csv/results.csv`
 
@@ -20,3 +20,9 @@ Make sure you have the following libraries:
 - Beautifulsoup
 - requests
 - pandas
+
+About requests `ConnectionError`
+- The reason for this error is unknown
+- Try-catch in code now. It simply skips this search and return an empty list. Then print the information in output. To record the skip information, pipe the output to a file so later you can redo the missing requests mannually
+- Run code like this
+`python main.py > log.txt`
